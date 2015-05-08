@@ -19,7 +19,7 @@ module Fog
         attribute :source_image, :aliases => 'sourceImage'
         attribute :source_snapshot, :aliases => 'sourceSnapshot'
         attribute :source_snapshot_id, :aliases => 'sourceSnapshot'
-
+        attribute :type
         def save
           requires :name
           requires :zone_name
@@ -36,7 +36,7 @@ module Fog
 
           options['sizeGb'] = size_gb
           options['description'] = description || my_description
-
+          options['type'] = type
           data = service.insert_disk(name, zone_name, source_image, options).body
           data = service.backoff_if_unfound {service.get_disk(name, zone_name).body}
           service.disks.merge_attributes(data)

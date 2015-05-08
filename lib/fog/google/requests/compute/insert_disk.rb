@@ -38,6 +38,13 @@ module Fog
               "sourceImageId" => image.id
             })
           end
+          if disk_type = options.delete(:type)
+            object["type"] = type
+          else
+            object["type"] = "https://www.googleapis.com/compute/#{api_version}/projects/#{@project}/zones/#{zone_name}/diskTypes/pd-ssd"
+          end
+          
+          
           self.data[:disks][disk_name] = object
 
           operation = self.random_operation
