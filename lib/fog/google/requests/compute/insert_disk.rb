@@ -87,7 +87,7 @@ module Fog
           end
 
           body_object = { 'name' => disk_name }
-
+          body_object['type'] = "https://www.googleapis.com/compute/#{api_version}/projects/#{@project}/zones/#{zone_name}/diskTypes/#{opts.delete('type')||'pd-ssd'}" 
           # According to Google docs, if image name is not present, only one of
           # sizeGb or sourceSnapshot need to be present, one will create blank
           # disk of desired size, other will create disk from snapshot
